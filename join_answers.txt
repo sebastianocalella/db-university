@@ -85,3 +85,17 @@ Theese answers refer to image.png diagram
 
 7) BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per
     superare ciascuno dei suoi esami
+
+    SELECT  `courses`.`name` AS nome_corso,
+    `students`.`surname` AS cognome_studente,
+    `students`.`name` AS nome_studente,
+    COUNT(*) AS n°_tentativi
+    FROM `courses` 
+    JOIN `exams`
+    ON `exams`.`course_id` = `courses`.`id`
+    JOIN `exam_student`
+    ON `exam_student`.`exam_id` = `exams`.`id`
+    JOIN `students`
+    ON `exam_student`.`student_id` = `students`.`id`
+    GROUP BY `exam_student`.`student_id`,`exams`.`course_id`
+    ORDER BY `exam_student`.`student_id`;
