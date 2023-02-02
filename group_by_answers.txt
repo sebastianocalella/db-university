@@ -6,8 +6,26 @@ Theese answers refer to image.png diagram
     FROM `students`
     GROUP BY YEAR(`enrolment_date`);
 
+
 2) Contare gli insegnanti che hanno l'ufficio nello stesso edificio
 
     SELECT `office_address` , COUNT(*)
     FROM `teachers`
     GROUP BY `office_address`;
+
+
+3) Calcolare la media dei voti di ogni appello d'esame
+
+    indica la media di ciascun singolo appello:  
+        SELECT `exam_id`,  AVG(`vote`)
+        FROM `exam_student`
+        GROUP BY `exam_id`;
+    
+    indica la media di ciascun esame:
+        SELECT `courses`.`name`,AVG(`exam_student`.vote) 
+        FROM `courses` 
+        JOIN `exams` 
+        ON `courses`.`id` = `exams`.`course_id` 
+        JOIN `exam_student` 
+        ON `exams`.`id` = `exam_student`.`exam_id` 
+        GROUP BY `courses`.`name`;
